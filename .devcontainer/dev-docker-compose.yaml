@@ -1,0 +1,11 @@
+services:
+  face-alignment:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ..:/workspace
+    command: sleep infinity
+    container_name: devcontainer-face-alignment
