@@ -1,0 +1,14 @@
+services:
+  face-alignment:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/workspace
+    container_name: face-alignment-service
+    command: bash -c " \
+      cd /workspace
+      /opt/conda/bin/python3.7 main.py
+      "
