@@ -18,7 +18,7 @@ docker compose up -d
 
 如果需要修改端口，找到[docker-compose.yaml](./docker-compose.yaml)中的`- "8000:8000"`这一行，比如你要改成9000端口，就写`- "9000:8000"`
 
-执行`docker compose up -d`之后，docker会通过[Dockerfile](./Dockerfile)构建face-alignment的运行环境，然后构建face-alignment，最后启动web server。
+执行`docker compose up -d`之后，docker会通过[Dockerfile](./Dockerfile)构建face-alignment的运行环境，然后启动web server。
 
 启动成功之后浏览器打开localhost:8000即可查看和调试
 
@@ -30,9 +30,7 @@ docker compose up -d
 
 [./docker-compose.yaml](./docker-compose.yaml)用于快速部署服务，[./.devcontainer](./.devcontainer) 用作开发容器(推荐使用vscode开发)区分开发环境与生产环境。
 
-为了照顾特殊网络环境，在安装依赖的过程中使用了自动给包管理器更换镜像源的脚本，[参考这里](https://linuxmirrors.cn/use/)。
-
-[./face-alignment](./face-alignment)是[1adrianb/face-alignment](https://github.com/1adrianb/face-alignment)源码，用于构建face-alignment。原本的dockerfile是现场从github clone的，为了照顾特殊网络环境，我改成了直接本地构建。
+为了照顾特殊网络环境，包管理器使用了清华源（[参考1: LinuxMirrors](https://linuxmirrors.cn/use/)，[参考2: 清华镜像-Ubuntu软件仓库](https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/)），pip也使用了清华源（[参考: 清华镜像: pypi使用帮助](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)）
 
 [./lib](./lib)是face-alignment运行所需要的模型等缓存文件，原本是要从作者的个人服务器下载的，为了照顾特殊网络环境，我改成了直接本地复制粘贴过去。
 
@@ -52,4 +50,3 @@ face-alignment 1.4.1
 2. 减少dockerfile的层数
 3. 静态页面检测效果
 4. 调用更多face功能
-5. 是否可以直接pip install face-alignment，不必手动构建呢?
