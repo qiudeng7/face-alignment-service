@@ -15,7 +15,8 @@
 		"vscode": {
 			"extensions": [
 				"ms-python.python",
-				"yzhang.markdown-all-in-one"
+				"yzhang.markdown-all-in-one",
+				"KevinRose.vsc-python-indent"
 			]
 		}
 	},
