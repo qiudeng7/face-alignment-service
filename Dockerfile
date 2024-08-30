@@ -3,7 +3,7 @@
 FROM pytorch/pytorch:1.6.0-cuda10.1-cudnn7-runtime
 
 # 包管理器换源，并安装图像处理依赖和基础工具
-RUN apt update && apt install -y curl bash && \
+RUN apt update; apt install -y curl bash; \
 bash -c "bash <(curl -sSL https://linuxmirrors.cn/main.sh) \
     --source mirrors.tuna.tsinghua.edu.cn \
     --protocol http \
@@ -13,7 +13,7 @@ bash -c "bash <(curl -sSL https://linuxmirrors.cn/main.sh) \
     --backup true \
     --upgrade-software true \
     --clean-cache true \
-    --ignore-backup-tips" &&\
+    --ignore-backup-tips";\
 apt update && apt install -y \
     build-essential \
     cmake \
@@ -31,14 +31,9 @@ apt update && apt install -y \
 COPY . /workspace
 WORKDIR /workspace
 
-# 安装Python依赖
-RUN /opt/conda/bin/pip install  \ 
--i https://pypi.tuna.tsinghua.edu.cn/simple \
--r /workspace/requirements.txt
-
-# 复制face-alignment运行时需要的模型
-RUN mkdir -p /root/.cache/torch/hub/checkpoints/ && \
-cp /workspace/lib/s3fd-619a316812.pth /root/.cache/torch/hub/checkpoints/s3fd-619a316812.pth && \
-cp /workspace/lib/2DFAN4_1.6-c827573f02.zip /root/.cache/torch/hub/checkpoints/2DFAN4_1.6-c827573f02.zip
+# 安装Python依赖 复制face-alignment运行时需要的模型
+RUN /opt/conda/bin/pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r /workspace/requirements.txt; \
+mkdir -p /root/.cache/torch/hub/checkpoints/ ; \
+cp /workspace/lib/* /root/.cache/torch/hub/checkpoints
 
 CMD /opt/conda/bin/python3.7 main.py

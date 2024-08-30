@@ -5,8 +5,7 @@ import helper
 
 app = Flask(__name__,template_folder='web_page')
 
-app = Flask(__name__)
-face = face_alignment.FaceAlignment(face_alignment.LandmarksType.TWO_D, flip_input=False,device='cpu')
+face = face_alignment.FaceAlignment(face_alignment.LandmarksType.TWO_D, flip_input=False,device='cpu',face_detector='blazeface')
 
 
 @app.route('/')
