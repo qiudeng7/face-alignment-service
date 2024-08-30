@@ -1,10 +1,17 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import face_alignment 
 import torch
 import helper
 
+app = Flask(__name__,template_folder='web_page')
+
 app = Flask(__name__)
 face = face_alignment.FaceAlignment(face_alignment.LandmarksType.TWO_D, flip_input=False,device='cpu')
+
+
+@app.route('/')
+def handle_get():
+    return render_template('index.html')
 
 @app.route('/api/get_landmarks', methods=['POST'])
 def handle_post():

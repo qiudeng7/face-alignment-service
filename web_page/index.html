@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>face-alignment test</title>
+</head>
+<body>
+
+    <h2>推荐上传图片之前先打开开发者工具 方便观察请求和响应</h2>
+    <h2> 选择图片之后会把图片转化为base64格式并发送给后端处理 获得响应后会即刻在图像上描出特征点位。 </h2>
+
+    <input type="file" id="image-input" accept="image/*">
+    
+    <div id="image-preview"></div>
+    <div id="response-data"></div> <!-- 用于显示响应数据 -->
+</body>
+</html>
+
+<script>
+document.getElementById('image-input').oninput = function(){
+    const imageFile = document.getElementById('image-input').files[0];
+    
+    if (imageFile) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const base64Image = e.target.result;
+            alert('base64格式的图像数据:\n' + base64Image)
+            document.getElementById('image-preview').innerHTML = `<img src="${base64Image}" alt="Preview">`;
+            // 将 base64 图像数据发送到后端
+            sendPostRequest(base64Image);
+        };
+        reader.readAsDataURL(imageFile);
+    } else {
+        alert('Please select an image file.');
+    }
+}
+
+function sendPostRequest(base64Image) {
+    const data = {
+        'image-base64': base64Image
+    };
+
+    fetch('/api/get_landmarks', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "识别成功") {
+            displayLandmarks(data.position);
+        } else {
+            alert('识别失败');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function displayLandmarks(landmarks) {
+    const responseDiv = document.getElementById('response-data');
+    responseDiv.innerHTML = ''; // 清空之前的内容
+
+    const points = landmarks.map((point, index) => {
+        return `<div style="position: absolute; width: 5px; height: 5px; background-color: aqua; border-radius: 50%; top: ${point[1]}px; left: ${point[0]}px;"></div>`;
+    });
+
+    responseDiv.innerHTML = points.join('');
+}
+</script>
