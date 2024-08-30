@@ -1,13 +1,6 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-dockerfile
+//devcontainer配置项参考 https://containers.dev/implementors/json_reference
 {
-	"name": "face-alignment2",
-	// "build": {
-	// 	// Sets the run context to one level up instead of the .devcontainer folder.
-	// 	"context": "..",
-	// 	// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
-	// 	"dockerfile": "../Dockerfile"
-	// },
+	"name": "face-alignment-devcontainer",
 	"dockerComposeFile": "dev-docker-compose.yaml",
 	"service": "face-alignment",
 	"workspaceFolder": "/workspace",
@@ -16,23 +9,9 @@
 			"extensions": [
 				"ms-python.python",
 				"yzhang.markdown-all-in-one",
-				"KevinRose.vsc-python-indent"
+				"KevinRose.vsc-python-indent",
+				"MarsCode.marscode-extension"
 			]
 		}
-	},
-
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
-	// Uncomment the next line to run commands after the container is created.
-	// "postCreateCommand": "cat /etc/os-release",
-
-	// Configure tool-specific properties.
-	// "customizations": {},
-
-	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "devcontainer"
+	}
 }
