@@ -2,18 +2,10 @@
 # 这个pytorch基础镜像的dockerhub地址 https://hub.docker.com/r/pytorch/pytorch/tags?page=&page_size=&ordering=&name=1.6.0-cuda10.1-cudnn7-runtime
 FROM pytorch/pytorch:1.6.0-cuda10.1-cudnn7-runtime
 
+COPY . /workspace
+
 # 包管理器换源，并安装图像处理依赖和基础工具
-RUN apt update && apt install -y curl bash&& \
-bash -c "bash <(curl -sSL https://linuxmirrors.cn/main.sh) \
-    --source mirrors.tuna.tsinghua.edu.cn \
-    --protocol http \
-    --intranet false \
-    --install-epel false \
-    --close-firewall false \
-    --backup true \
-    --upgrade-software true \
-    --clean-cache true \
-    --ignore-backup-tips"&&\
+RUN cp /workspace/apt-source.txt /etc/apt/sources.list && \
 apt update && apt install -y \
     build-essential \
     cmake \
@@ -27,8 +19,6 @@ apt update && apt install -y \
     libpng-dev \
     libgl1
 
-    
-COPY . /workspace
 WORKDIR /workspace/face-alignment
 
 # 安装Python依赖 复制face-alignment运行时需要的模型

@@ -28,7 +28,7 @@ docker compose up -d
 
 docker-compose.yaml用于快速部署服务，.devcontainer用作开发容器(推荐使用vscode开发)。
 
-为了照顾特殊网络环境，包管理器使用了清华源（[参考1: LinuxMirrors](https://linuxmirrors.cn/use/)，[参考2: 清华镜像-Ubuntu软件仓库](https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/)），pip也使用了清华源（[参考](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)）
+为了照顾特殊网络环境，包管理器和pip都使用了清华镜像源（[参考1](https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/)，[参考2](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)）。
 
 lib目录内是face-alignment运行所需要的模型等缓存文件，原本是在运行时从网络下载的，为了照顾特殊网络环境，我改成了直接本地复制粘贴过去。
 
