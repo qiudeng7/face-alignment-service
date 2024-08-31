@@ -8,7 +8,6 @@ conda-build==3.18.11
 conda-package-handling==1.7.0
 cryptography==2.9.2
 decorator==4.4.2
-face-alignment==1.4.1
 filelock==3.0.12
 future==1.0.0
 glob2==0.7
