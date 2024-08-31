@@ -284,7 +284,7 @@ class BlazeFace(nn.Module):
         x = self._preprocess(x)
 
         # 2. Run the neural network:
-        with torch.inference_mode():
+        with torch.no_grad():
             out = self.__call__(x)
 
         # 3. Postprocess the raw predictions:
